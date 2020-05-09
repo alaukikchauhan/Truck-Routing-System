@@ -12,11 +12,13 @@ export class RegistrationService {
 
   constructor(private _http: HttpClient) { }
 
-  register(user: RegistrationComponent){
-    return this._http.post<any>(this.url, user);
+  register(user: RegistrationComponent)
+  {
+    return this._http.post<any>('localhost:8083/signup', user);
   }
   esubmit(email: FpasswordComponent)
   {
-    return this._http.post<any>(this.url, email);
+    var body="username="+email;
+    return this._http.post<any>('localhost:8083/forgotpassword', body);
   }
 }

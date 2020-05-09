@@ -7,9 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProfitabilityEnahancement.entity.User;
@@ -44,10 +46,25 @@ public class WebController
 		return sessionFactory.openSession();
 	}
 	
-	@PostMapping("/forgotpassword")
-	public String ForgotPassword(@RequestBody User user)
+	@GetMapping("/signin")
+	public User signin(@RequestParam(name = "username", required = true) String username,
+			@RequestParam(name = "password", required = true) String password)
 	{
-		 emailService.sendMail(user.getEmail(), "User Name : "+user.getEmail(),"Password : "+ user.getPassword());
+		Session session = getSession();
+		User user=session.byNaturalId(User.class).using("username", username).load();
+		if(user.getPassword()!=password)
+			return null;
+		return user;
+	}
+	
+	@PostMapping("/forgotpassword")
+	public String ForgotPassword(@RequestParam(name = "email", required = true) String email)
+	{
+		Session session = getSession();
+		
+		User user=session.byNaturalId(User.class).using("email", email).load();
+		 
+		emailService.sendMail(user.getEmail(), "User Name : "+user.getEmail(),"Password : "+ user.getPassword());
          
 //	     emailService.sendPreConfiguredMail("Ho ho ho");
 	     

@@ -39,6 +39,7 @@ public class User
 	
 	@NotNull
 	@Column(unique = true)
+	@NaturalId
 	private String email;
 	
 	@NotNull

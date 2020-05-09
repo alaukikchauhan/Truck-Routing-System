@@ -9,13 +9,13 @@
            <h4>Login</h4>
      </div>
   <div class="card-body">
-     <form class="md-form">
+     <form class="md-form" formControlName="" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
      <div class="md-form">
-            <input type="text" class="form-control" id="uname"/>
+            <input type="text" class="form-control" id="uname" formControlName="username"/>
             <label for="uname">Username<span class="text-danger">*</span></label>
      </div>
      <div class="md-form">
-            <input type="password" class="form-control" id="pwd"/>
+            <input type="password" class="form-control" id="pwd" formControlName="password"/>
             <label for="uname">Password<span class="text-danger">*</span></label>
      </div>
      <button class="btn btn-indigo btn-md" type="submit">login</button>
