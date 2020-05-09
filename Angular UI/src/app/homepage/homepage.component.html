@@ -21,7 +21,7 @@
     </div>
     </div>
     <div class="transparent-box col-md-5 container my-5" style="font-weight: lighter; font-family: Calibri;" [hidden]="submitted">
-        <h4 align="center" class="mt-3">Final the efficient route</h4><hr>
+        <h4 align="center" class="mt-3">Find the efficient route</h4><hr>
         <form class="form-group container-fluid py-4">
             <div class="form-group">
                 <label for="source">Source<span class="text-danger">*</span></label>
@@ -38,7 +38,11 @@
             </form>
            
     </div>
-    <div [hidden]="!submitted" class="container">
-           
+    <div [hidden]="!submitted" class="transparent-box container my-5">
+           <div id="map">
+
+           </div>
+           <button class="btn btn-md btn-primary" (click)="submitted=false" style="font-family: 'Calibri Light';">back</button>
+           <button class="btn btn-md btn-primary" (click)="nearby()" style="font-family: 'Calibri Light';">Nearby</button>
     </div>
 </div>

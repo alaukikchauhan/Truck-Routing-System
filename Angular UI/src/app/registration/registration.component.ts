@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -11,20 +12,20 @@ import { from } from 'rxjs';
 export class RegistrationComponent implements OnInit {
 
   form = new FormGroup({
-    fname: new FormControl('', [Validators.required]),
-    lname: new FormControl('', [Validators.required]),
-    uname: new FormControl('', [Validators.required]),
+    firstname: new FormControl('', [Validators.required]),
+    lastname: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     tel: new FormControl('', [ Validators.required, Validators.maxLength(10)])
   });
   get f(){
       return this.form.controls;
   }
-  constructor(private rservice: RegistrationService) { }
+  submitted = false;
+  constructor(private rservice: RegistrationService, private router: Router) { }
 
   ngOnInit(): void {
   }
-
   onSubmit()
   {
     this.rservice.register(this.form.value)
@@ -33,5 +34,6 @@ export class RegistrationComponent implements OnInit {
       error => console.log('Error!', error)
     );
     console.log(this.form.value);
+    this.router.navigate(['']);
   }
 }

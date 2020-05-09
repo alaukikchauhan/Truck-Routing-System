@@ -8,17 +8,16 @@ import { FpasswordComponent } from './fpassword/fpassword.component';
 })
 export class RegistrationService {
 
-  url = '';
 
   constructor(private _http: HttpClient) { }
 
   register(user: RegistrationComponent)
   {
-    return this._http.post<any>('localhost:8083/signup', user);
+    return this._http.post<any>('http://localhost:8083/signup', user);
   }
   esubmit(email: FpasswordComponent)
   {
-    var body="username="+email;
-    return this._http.post<any>('localhost:8083/forgotpassword', body);
+    const body = 'username=' + email;
+    return this._http.post<any>('http://localhost:8083/forgotpassword', body);
   }
 }

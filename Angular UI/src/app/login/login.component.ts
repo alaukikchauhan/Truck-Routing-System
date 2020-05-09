@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,19 +13,21 @@ export class LoginComponent implements OnInit {
   form = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])});
-  constructor(private http: HttpClient) { }
+  submitted=false;  
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(user)
   {
-    var body="username="+user.user+"&password="+user.password;
+    const body = 'username=' + user.username + '&password=' + user.password;
 
-    this.http.post<any>("http://localhost:8083/profitabilityenhancement/signin", body)
-    .subscribe((data)=>
+    this.http.post<any>('http://localhost:8083/signin', body)
+    .subscribe((data) =>
     {
-        localStorage.setItem("currentUser",data);
+        localStorage.setItem('currentUser', data);
     });
+    this.router.navigate(['homepage']);
   }
 }
