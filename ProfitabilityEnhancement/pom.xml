@@ -8,33 +8,18 @@
 		<version>2.2.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nagarro</groupId>
-	<artifactId>NagarroTravelPortal</artifactId>
+	<groupId>edu.sinhgad</groupId>
+	<artifactId>ProfitabilityEnahancement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>NagarroTravelPortal</name>
-	<description>Fresher Exit Test</description>
+	<name>ProfitabilityEnahancement</name>
+	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
-	<!-- Other Dependencies-->
-	<dependency>
-    <groupId>org.passay</groupId>
-    <artifactId>passay</artifactId>
-    <version>1.0</version>
-	</dependency>
-	<dependency>
-    <groupId>com.google.guava</groupId>
-    <artifactId>guava</artifactId>
-    <version>23.0</version>
-		</dependency>
-		<dependency>
- 			<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-			</dependency>
 	<!-- Add dependency for Spring Data REST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -47,27 +32,50 @@
 		<dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+    <!-- Read XML Files -->
+    <dependency>
+ <groupId>mysql</groupId>
+ <artifactId>mysql-connector-java</artifactId>
 </dependency>
-		<dependency>
+
+<!-- https://mvnrepository.com/artifact/org.springframework.batch/spring-batch-core -->
+<dependency>
+    <groupId>org.springframework.batch</groupId>
+    <artifactId>spring-batch-core</artifactId>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-oxm -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-oxm</artifactId>
+</dependency>
+<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+
+    <!-- Other Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-  <groupId>org.apache.httpcomponents</groupId>
-  <artifactId>httpclient</artifactId>
-  <scope>test</scope>
-</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
