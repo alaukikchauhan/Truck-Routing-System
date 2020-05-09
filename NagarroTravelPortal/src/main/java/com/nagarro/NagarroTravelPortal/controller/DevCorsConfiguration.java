@@ -1,4 +1,5 @@
-package com.example.ProfitabilityEnahancement.controller;
+package com.nagarro.NagarroTravelPortal.controller;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

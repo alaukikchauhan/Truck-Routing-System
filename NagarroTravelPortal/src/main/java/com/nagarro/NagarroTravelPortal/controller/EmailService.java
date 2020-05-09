@@ -1,4 +1,4 @@
-package com.example.ProfitabilityEnahancement.services;
+package com.nagarro.NagarroTravelPortal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

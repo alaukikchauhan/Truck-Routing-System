@@ -1,4 +1,4 @@
-package com.example.ProfitabilityEnahancement.services;
+package com.nagarro.NagarroTravelPortal.entity.constraint;
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class GenerateSecurePassword {
     private static final Random RANDOM = new SecureRandom();
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    public String generatePassword() 
+    public static String generatePassword() 
     {
     	int length=10;
         StringBuilder returnValue = new StringBuilder(length);
