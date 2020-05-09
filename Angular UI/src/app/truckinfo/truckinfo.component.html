@@ -1,0 +1,55 @@
+<div class="deep-blue-gradient pb-4">
+    <div class="navbar navbar-expand-sm sticky-top navbar-dark unique-color-dark py-1">
+    <nav class="navbar-brand">
+    <span class="text-muted mx-2 ">Control Portal</span>
+    </nav>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link text-muted" routerLink="/homepage">Home</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link text-muted" routerLink="truckinfo">Truck Info</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-muted" routerLink="">Logout</a>
+        </li>
+    </ul>
+    </div>
+    </div>
+    <div class="transparent-box col-md-5 container my-5" style="font-weight: lighter; font-family: Calibri;" [hidden]="submitted">
+        <h4 align="center" class="mt-2">Enter truck details to find estimated cost</h4><hr>
+        <form class="form-group container-fluid py-3">
+            <div class="form-group">
+                <label for="source">Distance to travel(km)<span class="text-danger">*</span></label>
+                   <input type="number" class="form-control form-control-sm" id="source"/>
+                   
+            </div>
+            <div class="form-group">
+                <label for="destination">Mileage(kmpl)<span class="text-danger">*</span></label>
+                   <input type="number" class="form-control form-control-sm" id="destination"/>
+                   
+            </div>
+            <div class="form-group">
+                <label for="destination">Fuel left(litres)<span class="text-danger">*</span></label>
+                   <input type="number" class="form-control form-control-sm" id="destination"/>
+                   
+            </div>
+            <div class="form-group">
+                <label for="destination">Fuel tank capacity(litres)<span class="text-danger">*</span></label>
+                   <input type="number" class="form-control form-control-sm" id="destination"/>
+                   
+            </div>
+            <button class="btn btn-unique btn-md" type="submit" (click)="submitted=true">Calculate</button>
+            <div class="row mx-1" style="font-weight: lighter; font-family: Calibri;"><span class="text-danger">*</span><p class="text-muted">Fields are compulsory.</p></div>
+            </form>
+           
+    </div>
+    <div class="container transparent-box my-5  py-5" [hidden]="!submitted" style="font-family: 'Calibri Light';">
+         <button class="btn btn-primary btn-md" (click)="submitted=false">Back</button>
+         <button class="btn btn-primary btn-md">Print</button>
+    </div>
+</div>

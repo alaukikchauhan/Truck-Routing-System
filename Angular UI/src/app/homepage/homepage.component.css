@@ -1,0 +1,13 @@
+.transparent-box{
+    background-color: rgba(255,255,255,0.2);
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+#source,#destination {
+    background-color:rgba(0, 0, 0, 0);
+    color: grey;
+    border: 1px solid;
+    outline:none;
+    height:30px;  
+}
+
