@@ -25,12 +25,12 @@
         <form class="form-group container-fluid py-4">
             <div class="form-group">
                 <label for="source">Source<span class="text-danger">*</span></label>
-                   <input type="text" class="form-control form-control-sm"  id="source"/>
+                   <input type="text" class="form-control form-control-sm"  id="source" [(ngModel)]="src" #search autocorrect="off" autocapitalize="off" spellcheck="off">
                    
             </div>
             <div class="form-group">
                 <label for="destination">Destination<span class="text-danger">*</span></label>
-                   <input type="text" class="form-control form-control-sm"  id="destination"/>
+                   <input type="text" class="form-control form-control-sm"  id="destination" [(ngModel)]="dest">
                    
             </div>
             <button class="btn btn-elegant btn-md" type="submit" (click)="submitted=true">Find route</button>
@@ -39,10 +39,14 @@
            
     </div>
     <div [hidden]="!submitted" class="transparent-box container my-5">
-           <div id="map">
+         <h4>Here is the Map:</h4> 
+         <agm-map [latitude]="lat" [longitude]="lng">
 
-           </div>
-           <button class="btn btn-md btn-primary" (click)="submitted=false" style="font-family: 'Calibri Light';">back</button>
-           <button class="btn btn-md btn-primary" (click)="nearby()" style="font-family: 'Calibri Light';">Nearby</button>
+            <agm-direction [origin]="origin" [destination]="destination">
+            </agm-direction>
+          
+          </agm-map>
+           <button class="btn btn-md btn-primary"  (click)="submitted=false" style="font-family: 'Calibri Light';">back</button>
+           <button class="btn btn-md btn-primary" (click)="onRoute()" style="font-family: 'Calibri Light';">Nearby</button>
     </div>
 </div>

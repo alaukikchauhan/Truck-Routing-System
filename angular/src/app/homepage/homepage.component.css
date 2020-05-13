@@ -10,5 +10,8 @@
     outline:none;
     height:30px;  
 }
-#map {margin: 0;padding: 0;width: 100%;height: 100%;} 
+agm-map {
+    height: 400px;
+    width: 50%;
+} 
 

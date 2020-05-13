@@ -22,34 +22,51 @@
     </div>
     <div class="transparent-box col-md-5 container my-5" style="font-weight: lighter; font-family: Calibri;" [hidden]="submitted">
         <h4 align="center" class="mt-2">Enter truck details to find estimated cost</h4><hr>
-        <form class="form-group container-fluid py-3">
+        <form class="form-group container-fluid py-3" [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="source">Distance to travel(km)<span class="text-danger">*</span></label>
-                   <input type="number" class="form-control form-control-sm" id="source"/>
-                   
+                   <input type="number" class="form-control form-control-sm" id="source" formControlName="tdistance" [(ngModel)]="tdist">
+                   <div *ngIf="f.tdistance.touched && f.tdistance.invalid" class="alert alert-danger">
+                    <div *ngIf="f.tdistance.errors.required">Distance to travel is required.</div>
+                  </div>  
             </div>
             <div class="form-group">
                 <label for="destination">Mileage(kmpl)<span class="text-danger">*</span></label>
-                   <input type="number" class="form-control form-control-sm" id="destination"/>
-                   
+                   <input type="number" class="form-control form-control-sm" id="destination" formControlName="mileage" [(ngModel)]="mil">
+                   <div *ngIf="f.mileage.touched && f.mileage.invalid" class="alert alert-danger">
+                    <div *ngIf="f.mileage.errors.required">Mileage is required.</div>
+                  </div>
             </div>
             <div class="form-group">
                 <label for="destination">Fuel left(litres)<span class="text-danger">*</span></label>
-                   <input type="number" class="form-control form-control-sm" id="destination"/>
-                   
+                   <input type="number" class="form-control form-control-sm" id="destination" formControlName="fleft" [(ngModel)]="fl">
+                   <div *ngIf="f.fleft.touched && f.fleft.invalid" class="alert alert-danger">
+                    <div *ngIf="f.fleft.errors.required">Fuel left is required.</div>
+                  </div>
             </div>
             <div class="form-group">
                 <label for="destination">Fuel tank capacity(litres)<span class="text-danger">*</span></label>
-                   <input type="number" class="form-control form-control-sm" id="destination"/>
-                   
+                   <input type="number" class="form-control form-control-sm" id="destination" formControlName="tcapacity" [(ngModel)]="tcap">
+                   <div *ngIf="f.tcapacity.touched && f.tcapacity.invalid" class="alert alert-danger">
+                    <div *ngIf="f.tcapacity.errors.required">Fuel tank capacity is required.</div>
+                  </div>
             </div>
-            <button class="btn btn-unique btn-md" type="submit" (click)="submitted=true">Calculate</button>
+            <button class="btn btn-unique btn-md" type="submit" (click)="submitted=true" [disabled]="!form.valid">Calculate</button>
             <div class="row mx-1" style="font-weight: lighter; font-family: Calibri;"><span class="text-danger">*</span><p class="text-muted">Fields are compulsory.</p></div>
             </form>
            
     </div>
-    <div class="container transparent-box my-5  py-5" [hidden]="!submitted" style="font-family: 'Calibri Light';">
+    <div class="container transparent-box my-5  py-2" [hidden]="!submitted" style="font-family: 'Calibri Light';">
+        <h4 align="center" class="mt-1">Estimated jouney cost and other details</h4><hr>
+        <div class="col-md-5">
+            <ul class="">
+              <li class="">Distance to Travel: {{form.value.tdistance}} KM</li>
+              <li class="">Mileage of the vehicle: {{form.value.mileage}} Kmpl</li>
+              <li class="">Fuel required to complete journey: {{fuel_required | number:'1.0-0'}} Lts</li>
+              <li class="">Approximate fuel cost: Rs. {{fuel_cost | number:'1.0-0'}} </li>
+              <li class="">No. of filling stops: {{fstops | number:'1.0-0'}} times</li>
+            </ul></div>
          <button class="btn btn-primary btn-md" (click)="submitted=false">Back</button>
-         <button class="btn btn-primary btn-md">Print</button>
+         <button class="btn btn-primary btn-md">Show Map</button>
     </div>
 </div>

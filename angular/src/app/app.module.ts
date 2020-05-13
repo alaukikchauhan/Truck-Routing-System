@@ -9,6 +9,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { TruckinfoComponent } from './truckinfo/truckinfo.component';
 import { FpasswordComponent } from './fpassword/fpassword.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 import { from } from 'rxjs';
 
 @NgModule({
@@ -25,7 +27,12 @@ import { from } from 'rxjs';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+     apiKey: 'AIzaSyCF-vUFeLLz-y48Tu_QzCvip5yi94xp0u4',
+     libraries: ['places']
+    }),
+    AgmDirectionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

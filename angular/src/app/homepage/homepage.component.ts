@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MapsService } from '../maps.service';
-declare var MapmyIndia: any; // Declaring Mapmyindia
-declare var L: any;
+import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
+
+
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -10,30 +10,41 @@ declare var L: any;
 export class HomepageComponent implements OnInit {
 
   submitted = false;
-  public map: any;
-  token: any;
-  constructor(private mapsservice: MapsService) { }
+  public src: any;
+  public dest: any;
+  lat: any = 20.5937;
+  lng: any = 78.9629;
+  zoom: any = 2;
+  public origin: any;
+  public destination: any;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
 
-  ngOnInit(): void {
-    this.map = new MapmyIndia.Map('map',
-    {
-        center: [28.04, 78.2],
-        zoom: 12
-    });
+  getDirection() {
+    this.origin = {};
+    this.destination = { };
+  }
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
 
-    this.mapsservice.getToken().then((data) => {
-        this.token = data['access_token'];
-    });
-  }
-  auto() {
-    this.mapsservice.autoSuggest(this.token).then((data) => {
-        console.log(data);
-    });
-  }
-  nearby() {
-    this.mapsservice.nearby(this.token).then((data) => {
-        console.log(data);
-    });
+  ngOnInit(): void {}
+  findAdress(){
+    this.mapsAPILoader.load().then(() => {
+         const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+         autocomplete.addListener('place_changed', () => {
+           this.ngZone.run(() => {
+             // some details
+             const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+             if (place.geometry === undefined || place.geometry === null)
+             {
+               return ;
+             }
+           });
+         });
+       });
+   }
+  onRoute()
+  {
+    this.getDirection();
   }
 
 }
