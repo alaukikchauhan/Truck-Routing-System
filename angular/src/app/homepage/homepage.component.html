@@ -22,31 +22,34 @@
     </div>
     <div class="transparent-box col-md-5 container my-5" style="font-weight: lighter; font-family: Calibri;" [hidden]="submitted">
         <h4 align="center" class="mt-3">Find the efficient route</h4><hr>
-        <form class="form-group container-fluid py-4">
+        <form class="form-group container-fluid py-4" [formGroup]="directionForm" (ngSubmit)="calculateAndDisplayRoute(directionForm.value)">
             <div class="form-group">
                 <label for="source">Source<span class="text-danger">*</span></label>
-                   <input type="text" class="form-control form-control-sm"  id="source" [(ngModel)]="src" #search autocorrect="off" autocapitalize="off" spellcheck="off">
+                   <input type="text" class="form-control form-control-sm"  id="source" formControlName="source">
                    
             </div>
             <div class="form-group">
                 <label for="destination">Destination<span class="text-danger">*</span></label>
-                   <input type="text" class="form-control form-control-sm"  id="destination" [(ngModel)]="dest">
+                   <input type="text" class="form-control form-control-sm"  id="destination" formControlName="destination">
                    
             </div>
-            <button class="btn btn-elegant btn-md" type="submit" (click)="submitted=true">Find route</button>
+            <button class="btn btn-elegant btn-md" type="submit" (click)="submitted=true" [disabled]="directionForm.invalid">Find route</button>
             <div class="row mx-1" style="font-weight: lighter; font-family: Calibri;"><span class="text-danger">*</span><p class="text-muted">Fields are compulsory.</p></div>
             </form>
            
     </div>
     <div [hidden]="!submitted" class="transparent-box container my-5">
+        <div class="row">
          <h4>Here is the Map:</h4> 
-         <agm-map [latitude]="lat" [longitude]="lng">
-
-            <agm-direction [origin]="origin" [destination]="destination">
-            </agm-direction>
-          
-          </agm-map>
+         <div #mapElement class="map col-md-6"></div>
+         <div class="data col-md-6 mr-5">
+             <h5 class="ml-3">Route Details</h5>
+             <ul>
+                 <li>Distance: {{this.cdistance}}</li>
+                 <li>Duration of Route: {{this.cduration}}</li>
+             </ul>
+         </div>
+         </div>
            <button class="btn btn-md btn-primary"  (click)="submitted=false" style="font-family: 'Calibri Light';">back</button>
-           <button class="btn btn-md btn-primary" (click)="onRoute()" style="font-family: 'Calibri Light';">Nearby</button>
     </div>
 </div>

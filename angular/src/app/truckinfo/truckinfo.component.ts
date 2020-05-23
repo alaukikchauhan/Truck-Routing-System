@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+declare var google;
+declare var L: any;
 @Component({
   selector: 'app-truckinfo',
   templateUrl: './truckinfo.component.html',
   styleUrls: ['./truckinfo.component.css']
 })
-export class TruckinfoComponent implements OnInit {
+export class TruckinfoComponent implements OnInit, AfterViewInit {
 
   submitted = false;
   public fuel_required: number;
@@ -18,6 +19,12 @@ export class TruckinfoComponent implements OnInit {
   public tcap: number;
   public rfuel: number;
   public fcount: number;
+
+  @ViewChild('mapElement') mapNativeElement: ElementRef;
+  // tslint:disable-next-line:new-parens
+  directionsService = new google.maps.DirectionsService;
+  // tslint:disable-next-line:new-parens
+  directionsDisplay = new google.maps.DirectionsRenderer;
   form = new FormGroup({
     tdistance: new FormControl('', [Validators.required]),
     mileage: new FormControl('', [Validators.required]),
@@ -32,6 +39,68 @@ export class TruckinfoComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  ngAfterViewInit(): void {
+    const map = new google.maps.Map(this.mapNativeElement.nativeElement, {
+      zoom: 5,
+      center: {lat: 20.5937, lng: 78.9629}
+    });
+    this.directionsDisplay.setMap(map);
+  }
+  calculateAndDisplayRoute(formValues) {
+    const that = this;
+    this.directionsService.route({
+      origin: formValues.source,
+      destination: formValues.destination,
+      travelMode: 'DRIVING'
+    }, (response, status) => {
+      if (status === 'OK') {
+        that.directionsDisplay.setDirections(response);
+        console.log(response);
+        console.log(response.routes[0].legs[0].distance);
+        const route = new L.Polyline(L.PolylineUtil.decode(response.routes[0].overview_path));
+        const distance = 10; // Distance in km
+        const boxes = L.RouteBoxer.box(route, distance);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+  findPlaces(boxes) {
+    let data = '';
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < boxes.length; i++) {
+     // form the query string that will be sent via ajax
+     if (data !== '') {
+      data += '&';
+     }
+     // tslint:disable-next-line:quotemark
+     // tslint:disable-next-line:max-line-length
+     data += 'boxes[]=' + boxes[i].getNorthEast().lat() + ':' + boxes[i].getNorthEast().lng() + '-' + boxes[i].getSouthWest().lat() + ":" + boxes[i].getSouthWest().lng();
+    }
+    if (data !== '') {
+     // make an ajax request to query the database
+     // suppose that the response would be a JSON similar to this
+     const response = '[{"title":"Dodona Site","latitude":"39.546135","longitude":"20.785105"},{"title":"Perama Cave","latitude":"39.695000","longitude":"20.846457"},{"title":"Trikorfo Castle","latitude":"39.298645","longitude":"20.367601"}]';
+     const places = JSON.parse(response);
+     // tslint:disable-next-line:forin
+     for (const i in places) {
+      const coords = new google.maps.LatLng(places[i].latitude, places[i].longitude);
+      this.createMarker(Map, coords, places[i].title);
+     }
+    }
+   }
+  // placing a marker on the map
+  createMarker(Map, coords, title) {
+  const marker = new google.maps.Marker({
+   position: coords,
+   map: Map,
+   // tslint:disable-next-line:object-literal-shorthand
+   title: title,
+   draggable: false
+  });
+  return marker;
+ }
   onSubmit()
   {
     console.log(this.form.value);

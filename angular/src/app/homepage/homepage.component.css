@@ -10,8 +10,16 @@
     outline:none;
     height:30px;  
 }
-agm-map {
+.map {
     height: 400px;
-    width: 50%;
+    margin-top: 4%;
+    margin-left: -10%;
 } 
-
+ul{
+    list-style: none;
+}
+.data{
+    text-align: justify;
+    margin-left: 55%;
+    margin-top: -30%;
+}
