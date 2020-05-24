@@ -19,6 +19,8 @@
     "@angular/platform-browser": "~9.1.1",
     "@angular/platform-browser-dynamic": "~9.1.1",
     "@angular/router": "~9.1.1",
+    "decode-google-map-polyline": "^1.0.1",
+    "leaflet": "^1.6.0",
     "leaflet-routeboxer": "^1.0.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

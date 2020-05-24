@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as L from 'leaflet';
 declare var google;
-declare var L: any;
 @Component({
   selector: 'app-truckinfo',
   templateUrl: './truckinfo.component.html',
@@ -39,33 +39,17 @@ export class TruckinfoComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
   }
-
-  ngAfterViewInit(): void {
-    const map = new google.maps.Map(this.mapNativeElement.nativeElement, {
-      zoom: 5,
-      center: {lat: 20.5937, lng: 78.9629}
+  // placing a marker on the map
+  createMarker(Map, coords, title) {
+    const marker = new google.maps.Marker({
+     position: coords,
+     map: Map,
+     // tslint:disable-next-line:object-literal-shorthand
+     title: title,
+     draggable: false
     });
-    this.directionsDisplay.setMap(map);
-  }
-  calculateAndDisplayRoute(formValues) {
-    const that = this;
-    this.directionsService.route({
-      origin: formValues.source,
-      destination: formValues.destination,
-      travelMode: 'DRIVING'
-    }, (response, status) => {
-      if (status === 'OK') {
-        that.directionsDisplay.setDirections(response);
-        console.log(response);
-        console.log(response.routes[0].legs[0].distance);
-        const route = new L.Polyline(L.PolylineUtil.decode(response.routes[0].overview_path));
-        const distance = 10; // Distance in km
-        const boxes = L.RouteBoxer.box(route, distance);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-  }
+    return marker;
+   }
   findPlaces(boxes) {
     let data = '';
     // tslint:disable-next-line:prefer-for-of
@@ -90,17 +74,33 @@ export class TruckinfoComponent implements OnInit, AfterViewInit {
      }
     }
    }
-  // placing a marker on the map
-  createMarker(Map, coords, title) {
-  const marker = new google.maps.Marker({
-   position: coords,
-   map: Map,
-   // tslint:disable-next-line:object-literal-shorthand
-   title: title,
-   draggable: false
-  });
-  return marker;
- }
+  ngAfterViewInit(): void {
+    const map = new google.maps.Map(this.mapNativeElement.nativeElement, {
+      zoom: 5,
+      center: {lat: 20.5937, lng: 78.9629}
+    });
+    this.directionsDisplay.setMap(map);
+  }
+  calculateAndDisplayRoute() {
+    const that = this;
+    this.directionsService.route({
+      origin: 'delhi',
+      destination: 'bareilly',
+      travelMode: 'DRIVING'
+    }, (response, status) => {
+      if (status === 'OK') {
+        that.directionsDisplay.setDirections(response);
+        console.log(response);
+        console.log(response.routes[0].legs[0].distance);
+        const route = new L.Polyline(L.PolylineUtil.decode(response.routes[0].overview_path));
+        const distance = 10; // Distance in km
+        const boxes = L.RouteBoxer.box(route, distance);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+
   onSubmit()
   {
     console.log(this.form.value);
