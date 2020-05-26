@@ -14,7 +14,7 @@ import com.example.ProfitabilityEnahancement.entity.Truck;
 import com.example.ProfitabilityEnahancement.jpaiml.TruckRepository;
 import com.opencsv.CSVReader;
 @Service
-public class Store /*extends TimerTask*/
+public class Store extends TimerTask
 {
 
 	
