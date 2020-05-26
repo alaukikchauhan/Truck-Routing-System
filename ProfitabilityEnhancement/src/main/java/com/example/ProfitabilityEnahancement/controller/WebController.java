@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProfitabilityEnahancement.entity.User;
 import com.example.ProfitabilityEnahancement.services.EmailService;
 import com.example.ProfitabilityEnahancement.services.GenerateSecurePassword;
+import com.example.ProfitabilityEnahancement.services.Store;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*",maxAge = 1800)
@@ -25,6 +26,7 @@ public class WebController
 {
 	@Autowired
 	private EmailService emailService;
+	
 	
 	private SessionFactory sessionFactory;
 	
@@ -64,7 +66,7 @@ public class WebController
 		
 		User user=(User)session.createQuery("from User u where u.email='"+email+"'").list().get(0);
 		 
-		emailService.sendMail(user.getEmail(), "Welcome"+user.getFirstname(),"User Name : "+user.getUsername()+"  "+"Password : "+ user.getPassword());
+		emailService.sendMail(user.getEmail(), "Welcome"+" "+user.getFirstname(),"User Name : "+user.getUsername()+"  "+"Password : "+ user.getPassword());
          
 //	     emailService.sendPreConfiguredMail("Ho ho ho");
 	     
@@ -78,9 +80,16 @@ public class WebController
 		Transaction t=session.beginTransaction();
 		user.setPassword(generator.generatePassword());
 		session.saveOrUpdate(user);
-		emailService.sendMail(user.getEmail(), "Welcome"+user.getFirstname(),"User Name : "+user.getUsername()+"  "+"Password : "+ user.getPassword());
+		emailService.sendMail(user.getEmail(), "Welcome"+" "+user.getFirstname(),"User Name : "+user.getUsername()+"  "+"Password : "+ user.getPassword());
 		t.commit();
 		System.out.println(user);
 		return user;
+	}
+	
+	@GetMapping("/abc")
+	public void Store()
+	{
+		Store st=new Store();
+		st.run();
 	}
 }

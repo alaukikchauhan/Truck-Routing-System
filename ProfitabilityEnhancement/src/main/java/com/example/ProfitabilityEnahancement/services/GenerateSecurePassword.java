@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service("pass")
 public class GenerateSecurePassword {
     private static final Random RANDOM = new SecureRandom();
-    private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@!#$%^&*";
     public String generatePassword() 
     {
     	int length=10;

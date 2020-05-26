@@ -98,10 +98,12 @@ public class User
 		return id;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", email=" + email + ", tel=" + tel + "]";
+		return "User [username=" + username + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", tel=" + tel + "]";
 	}
 
 	public User(@NotNull String username, @NotNull String firstname, String lastname, @NotNull String email,
